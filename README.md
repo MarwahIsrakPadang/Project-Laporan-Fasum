@@ -17,7 +17,7 @@ Aplikasi ini menyediakan sistem pengelolaan data (CRUD) yang lengkap:
 
 -   **Create**: Pengguna dapat mengirimkan laporan kerusakan baru dengan mengisi form yang tersedia.
 -   **Read**: Menampilkan daftar laporan dalam bentuk tabel yang rapi, lengkap dengan detail statusnya.
--   **Update**: Memungkinkan pengguna atau admin untuk memperbarui informasi laporan jika terdapat kesalahan atau perubahan status.
+-   **Update**: Memungkinkan pengguna untuk memperbarui informasi laporan jika terdapat kesalahan atau perubahan status.
 -   **Delete**: Menghapus data laporan dari sistem jika data tersebut sudah tidak relevan.
 
 ---
