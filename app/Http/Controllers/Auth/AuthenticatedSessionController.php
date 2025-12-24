@@ -22,8 +22,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        // Diarahkan langsung ke halaman laporan (laporan.index)
-        return redirect()->intended(route('laporan.index', absolute: false));
+        return redirect()->intended(route('dashboard', absolute: false));
     }
 
     public function destroy(Request $request): RedirectResponse

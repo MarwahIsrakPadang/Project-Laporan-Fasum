@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Laporan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class LaporanController extends Controller
 {
     public function index()
     {
-        $laporans = Laporan::latest()->get();
+        $laporans = Laporan::where('user_id', auth()->id())->latest()->get();
         return view('laporan.index', compact('laporans'));
     }
 
@@ -21,19 +22,24 @@ class LaporanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama_fasilitas' => 'required|string|max:255',
-            'lokasi' => 'required|string|max:255',
-            'keluhan' => 'required|string',
+            'judul_laporan' => 'required|string|max:255',
+            'lokasi' => 'required|string',
+            'deskripsi_laporan' => 'required|string',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-        Laporan::create([
-            'nama_fasilitas' => $request->nama_fasilitas,
-            'lokasi' => $request->lokasi,
-            'keluhan' => $request->keluhan,
-            'status' => 'Pending',
-        ]);
+        $data = $request->all();
 
-        return redirect()->route('laporan.index')->with('success', 'Laporan berhasil dikirim!');
+        if ($request->hasFile('foto')) {
+            $data['foto'] = $request->file('foto')->store('laporan-foto', 'public');
+        }
+
+        $data['status'] = 'pending';
+        $data['user_id'] = auth()->id();
+
+        Laporan::create($data);
+
+        return redirect()->route('laporan.index')->with('success', 'Laporan berhasil disimpan!');
     }
 
     public function edit(Laporan $laporan)
@@ -44,25 +50,34 @@ class LaporanController extends Controller
     public function update(Request $request, Laporan $laporan)
     {
         $request->validate([
-            'nama_fasilitas' => 'required|string|max:255',
-            'lokasi' => 'required|string|max:255',
-            'keluhan' => 'required|string',
-            'status' => 'required|in:Pending,Proses,Selesai',
+            'judul_laporan' => 'required|string|max:255',
+            'lokasi' => 'required|string',
+            'deskripsi_laporan' => 'required|string',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-        $laporan->update([
-            'nama_fasilitas' => $request->nama_fasilitas,
-            'lokasi' => $request->lokasi,
-            'keluhan' => $request->keluhan,
-            'status' => $request->status,
-        ]);
+        $data = $request->all();
 
-        return redirect()->route('laporan.index')->with('success', 'Data dan Status laporan berhasil diperbarui!');
+        if ($request->hasFile('foto')) {
+            if ($laporan->foto) {
+                Storage::disk('public')->delete($laporan->foto);
+            }
+            $data['foto'] = $request->file('foto')->store('laporan-foto', 'public');
+        }
+
+        $laporan->update($data);
+
+        return redirect()->route('laporan.index')->with('success', 'Laporan berhasil diperbarui!');
     }
 
     public function destroy(Laporan $laporan)
     {
+        if ($laporan->foto) {
+            Storage::disk('public')->delete($laporan->foto);
+        }
+        
         $laporan->delete();
+
         return redirect()->route('laporan.index')->with('success', 'Laporan berhasil dihapus!');
     }
 }

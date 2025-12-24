@@ -1,68 +1,93 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="id">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>LaporFasum - Sistem Aspirasi Fasilitas Umum</title>
-
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700,800&display=swap" rel="stylesheet" />
-
+    <title>LaporFasum - Layanan Aspirasi Fasilitas Umum</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <style>
+        html { scroll-behavior: smooth; }
+        .btn-custom {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: auto;
+            min-width: 220px;
+            max-width: 280px;
+        }
+    </style>
 </head>
-<body class="antialiased font-sans text-gray-900 bg-gray-50">
-    
-    <nav class="absolute top-0 w-full z-50">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            <div class="flex justify-end h-20 items-center gap-6">
-                @if (Route::has('login'))
+<body class="antialiased bg-white text-gray-900">
+
+    <nav class="bg-white border-b sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center">
+                    <span class="text-xl font-bold text-indigo-600 tracking-tighter">Lapor<span class="text-gray-800">Fasum</span></span>
+                </div>
+                <div class="hidden md:flex space-x-8 text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">
+                    <a href="{{ url('/') }}" class="hover:text-indigo-600 transition">Beranda</a>
+                    <a href="{{ route('cara.kerja') }}" class="hover:text-indigo-600 transition">Cara Kerja</a>
+                    <a href="#statistik" class="hover:text-indigo-600 transition">Statistik</a>
+                </div>
+                <div class="flex items-center space-x-3">
                     @auth
-                        <a href="{{ url('/dashboard') }}" class="text-sm font-semibold text-gray-600 hover:text-indigo-600 transition">Dashboard</a>
+                        <a href="{{ url('/dashboard') }}" class="text-[10px] font-bold text-indigo-600 border border-indigo-600 px-4 py-2 rounded-lg hover:bg-indigo-50 transition uppercase tracking-widest">Dashboard</a>
                     @else
-                        <a href="{{ route('login') }}" class="text-sm font-semibold text-gray-600 hover:text-indigo-600 transition">Log in</a>
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="text-sm font-semibold text-gray-600 hover:text-indigo-600 transition">Register</a>
-                        @endif
+                        <a href="{{ route('login') }}" class="text-[10px] font-bold text-gray-500 px-4 py-2 uppercase tracking-widest">Login</a>
+                        <a href="{{ route('register') }}" class="bg-indigo-600 text-white px-5 py-2 rounded-lg text-[10px] font-bold shadow-md hover:bg-indigo-700 transition uppercase tracking-widest">Register</a>
                     @endauth
-                @endif
+                </div>
             </div>
         </div>
     </nav>
 
-    <main class="min-h-screen flex items-center justify-center px-4">
-        <div class="max-w-4xl mx-auto text-center">
-            
-            <div class="flex justify-center mb-10">
-                <img src="{{ asset('images/logo-gedung.png') }}" 
-                     alt="Logo Fasum" 
-                     style="height: 80px !important; width: auto !important; display: block !important; object-fit: contain;">
-            </div>
-
-            <h1 class="text-5xl md:text-7xl font-extrabold text-gray-900 leading-tight tracking-tight">
-                Sistem Laporan Kerusakan <span class="text-indigo-600">Fasilitas Umum</span>
+    <section class="relative py-20 bg-white border-b border-gray-50 text-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 class="text-4xl md:text-6xl font-black text-gray-900 leading-tight tracking-tighter">
+                Wujudkan Fasilitas Lebih Bagus Dengan <br class="hidden md:block"> 
+                <span class="text-indigo-600">Laporan Anda.</span>
             </h1>
-            
-            <p class="mt-8 text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed">
-                Laporkan kerusakan fasilitas publik di sekitar Anda dengan cepat dan pantau proses perbaikannya secara real-time.
+            <p class="mt-6 text-base text-gray-500 leading-relaxed max-w-2xl mx-auto italic">
+                Laporkan kerusakan jalan, lampu mati, atau fasilitas publik lainnya. Kami pantau hingga selesai.
             </p>
-
-            <div class="mt-12 flex flex-col sm:flex-row justify-center items-center gap-6">
-                <a href="{{ route('login') }}" class="px-10 py-4 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition-all transform hover:scale-105 shadow-xl shadow-indigo-200 w-full sm:w-auto">
-                    Mulai Lapor Sekarang
+            
+            <div class="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4 max-w-lg mx-auto">
+                <a href="{{ route('dashboard') }}" 
+                    class="btn-custom bg-indigo-600 text-white px-6 py-4 rounded-xl font-bold shadow-xl hover:bg-indigo-700 transform hover:-translate-y-1 transition duration-300 uppercase text-[11px] tracking-[0.1em]">
+                     Mulai Lapor Sekarang
                 </a>
-                
-                <a href="{{ route('register') }}" class="text-gray-700 font-bold hover:text-indigo-600 transition flex items-center group">
-                    Buat Akun Baru 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
+                <a href="{{ route('cara.kerja') }}" 
+                   class="btn-custom bg-white text-gray-600 border border-gray-200 px-6 py-4 rounded-xl font-bold hover:bg-gray-50 transition uppercase text-[11px] tracking-[0.1em]">
+                    Pelajari Lebih Lanjut
                 </a>
             </div>
         </div>
-    </main>
+    </section>
 
-    <footer class="absolute bottom-8 w-full text-center text-gray-400 text-sm font-medium uppercase tracking-widest">
-        &copy; {{ date('Y') }} LAPOR<span class="text-indigo-400">FASUM</span> ADMIN PANEL V1.0
+    <section id="statistik" class="bg-indigo-700 py-16">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-8 text-white">
+                <div>
+                    <div class="text-4xl font-black mb-1">{{ $totalLaporan }}</div>
+                    <div class="text-indigo-200 text-[10px] font-bold uppercase tracking-widest">Laporan Masuk</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-black mb-1">{{ $laporanSelesai }}</div>
+                    <div class="text-indigo-200 text-[10px] font-bold uppercase tracking-widest">Perbaikan Selesai</div>
+                </div>
+                <div class="col-span-2 md:col-span-1">
+                    <div class="text-4xl font-black mb-1">24/7</div>
+                    <div class="text-indigo-200 text-[10px] font-bold uppercase tracking-widest">Monitoring</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-10 border-t border-gray-100 bg-white text-center">
+        <p class="text-gray-400 text-[9px] font-bold uppercase tracking-[0.3em]">
+            &copy; {{ date('Y') }} LaporFasum &bull; Prioritas Kualitas Publik
+        </p>
     </footer>
 
 </body>
