@@ -1,32 +1,39 @@
 # 🏛️ LAPORAN FASUM (Layanan Aspirasi Fasilitas Umum)
 
-<p align="center">
-  <img src="public/images/logo-gedung.png" width="150" alt="Logo Lapor Fasum">
-</p>
+Aplikasi berbasis web untuk memudahkan masyarakat dalam melaporkan kerusakan fasilitas publik secara transparan dan efisien.
 
-## Tentang Proyek
-
-**LAPORAN FASUM** adalah platform digital berbasis web yang dikembangkan dengan **Laravel 12** untuk memudahkan masyarakat dalam melaporkan kerusakan fasilitas publik. Sistem ini bertujuan untuk menciptakan transparansi dan mempercepat proses perbaikan fasilitas umum oleh pihak terkait.
+---
 
 ## Fitur Utama
 
--   **Pelaporan Online**: Kirim laporan kerusakan lengkap dengan foto bukti.
--   **Tracking Status**: Pantau proses perbaikan secara real-time (Lapor -> Proses -> Selesai).
--   **Admin Panel**: Kelola semua laporan masuk secara efisien.
--   **Dashboard User**: Riwayat laporan yang pernah dikirimkan.
+### Autentikasi & Keamanan
+
+-   **Middleware Auth**: Dashboard dan seluruh fitur pengelolaan data diproteksi secara ketat. Hanya pengguna yang sudah login yang dapat mengakses fungsi utama sistem.
+-   **Sistem Register & Login**: Manajemen akun pengguna untuk memastikan setiap laporan dapat dipertanggungjawabkan.
+
+### Manajemen Laporan (CRUD System)
+
+Aplikasi ini menyediakan sistem pengelolaan data (CRUD) yang lengkap:
+
+-   **Create**: Pengguna dapat mengirimkan laporan kerusakan baru dengan mengisi form yang tersedia.
+-   **Read**: Menampilkan daftar laporan dalam bentuk tabel yang rapi, lengkap dengan detail statusnya.
+-   **Update**: Memungkinkan pengguna atau admin untuk memperbarui informasi laporan jika terdapat kesalahan atau perubahan status.
+-   **Delete**: Menghapus data laporan dari sistem jika data tersebut sudah tidak relevan.
+
+---
 
 ## Teknologi yang Digunakan
 
--   **Framework**: [Laravel 12](https://laravel.com)
--   **Frontend**: Tailwind CSS & Blade Templating
+-   **Framework**: Laravel 12
 -   **Database**: MySQL / MariaDB
--   **Tooling**: Vite, Composer, & NPM
+-   **Frontend**: Blade Templating & Tailwind CSS
+-   **Autentikasi**: Laravel Breeze / Jetstream (sesuaikan dengan yang Anda pakai)
 
-## ⚙️ Cara Instalasi
+---
 
-1. Clone repositori: `git clone https://github.com/MarwahIsrakPadang/Project-Laporan-Fasum.git`
-2. Install dependencies: `composer install` & `npm install`
-3. Salin `.env.example` ke `.env` dan atur database.
-4. Generate key: `php artisan key:generate`
-5. Jalankan migrasi: `php artisan migrate`
-6. Jalankan server: `php artisan serve`
+## Cara Instalasi
+
+1. Clone repositori ini:
+    ```bash
+    git clone [https://github.com/MarwahIsrakPadang/Project-Laporan-Fasum.git](https://github.com/MarwahIsrakPadang/Project-Laporan-Fasum.git)
+    ```
