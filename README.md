@@ -27,7 +27,7 @@ Aplikasi ini menyediakan sistem pengelolaan data (CRUD) yang lengkap:
 -   **Framework**: Laravel 12
 -   **Database**: MySQL / MariaDB
 -   **Frontend**: Blade Templating & Tailwind CSS
--   **Autentikasi**: Laravel Breeze / Jetstream (sesuaikan dengan yang Anda pakai)
+-   **Autentikasi**: Laravel Breeze 
 
 ---
 
