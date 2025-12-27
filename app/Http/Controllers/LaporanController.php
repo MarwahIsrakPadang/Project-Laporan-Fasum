@@ -25,7 +25,7 @@ class LaporanController extends Controller
             'judul_laporan' => 'required|string|max:255',
             'lokasi' => 'required|string',
             'deskripsi_laporan' => 'required|string',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', 
         ]);
 
         $data = $request->all();
@@ -44,6 +44,9 @@ class LaporanController extends Controller
 
     public function edit(Laporan $laporan)
     {
+        if ($laporan->user_id !== auth()->id()) {
+            abort(403);
+        }
         return view('laporan.edit', compact('laporan'));
     }
 
